@@ -1,4 +1,4 @@
-package com.xiaozhi.thread02;
+package com.xiaozhi.thread02.create;
 
 import lombok.extern.slf4j.Slf4j;
 

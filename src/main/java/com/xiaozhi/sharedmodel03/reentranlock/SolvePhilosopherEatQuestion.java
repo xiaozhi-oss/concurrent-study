@@ -3,8 +3,12 @@ package com.xiaozhi.sharedmodel03.reentranlock;
 import com.xiaozhi.utils.TimeUtil;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 /**
  * @author xiaozhi
+ *
+ * 解决哲学家问题
  */
 public class SolvePhilosopherEatQuestion {
 
@@ -18,12 +22,12 @@ public class SolvePhilosopherEatQuestion {
         new Philosopher("柏拉图", c2, c3).start();
         new Philosopher("亚里士多德", c3, c4).start();
         new Philosopher("赫拉克利特", c4, c5).start();
-        new Philosopher("阿基米德", c1, c5).start();
+        new Philosopher("阿基米德", c5, c1).start();
     }
 }
 
 @Slf4j(topic = "筷子")
-class Chopstick {
+class Chopstick extends ReentrantLock{
 }
 
 @Slf4j(topic = "哲学家")
@@ -43,10 +47,17 @@ class Philosopher extends Thread{
     public void run() {
         while (true) {
             // 拿到左边筷子
-            synchronized (left) {
-                // 拿到右边筷子
-                synchronized (right) {
-                    eat();
+            if (left.tryLock()) {
+                try {
+                    if (right.tryLock()) {
+                        try {
+                            eat();
+                        } finally {
+                            right.unlock();
+                        }
+                    }
+                } finally {
+                    left.unlock();
                 }
             }
         }

@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author xiaozhi
  *
- * 同步和异步测试
+ * 异步测试
  */
 @Slf4j(topic = "c.sync")
 public class SyncTest {

@@ -5,13 +5,13 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author xiaozhi
  *
- * 同步和异步测试
+ * 异步测试
  */
-@Slf4j(topic = "c.sync")
-public class SyncTest {
+@Slf4j(topic = "c.async")
+public class AsyncTest {
 
     public static void main(String[] args) {
-        FileReader.read();
+        new Thread(() -> FileReader.read()).start();
         log.info("do other things...");
     }
 }

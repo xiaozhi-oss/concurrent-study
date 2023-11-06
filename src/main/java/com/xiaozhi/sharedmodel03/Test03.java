@@ -5,17 +5,17 @@ package com.xiaozhi.sharedmodel03;
  */
 public class Test03 {
 
+    public void test01() {
+        synchronized (this) {
 
-}
-
-class Admin {
-
-    public synchronized static void test01() {
-
+        }
     }
 
-    public synchronized void test02() {
+    public static void test02() {
+        synchronized (Test03.class) {
 
+        }
     }
+
 }
 
